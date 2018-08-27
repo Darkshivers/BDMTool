@@ -1,0 +1,30 @@
+{
+  "name": "bdmtool",
+  "version": "0.0.1",
+  "description": "Outputting securely values from Oak Partnership for use by BDMs and staff",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Darkshivers/BDMToolnode.git"
+  },
+  "keywords": [
+    "REST",
+    "API",
+    "stuff"
+  ],
+  "author": "Darkshivers",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/Darkshivers/BDMToolnode/issues"
+  },
+  "homepage": "https://github.com/Darkshivers/BDMToolnode#readme",
+  "dependencies": {
+    "body-parser": "^1.18.3",
+    "express": "^4.16.3",
+    "mustache-express": "^1.2.7",
+    "request": "^2.88.0"
+  }
+}
