@@ -2,6 +2,7 @@ const express = require('express');
 const request = require('request');
 const mustacheExpress = require('mustache-express');
 const bodyParser = require('body-parser');
+const rp = require('request-promise');
 
 let app = express();
 let port = 4444;
@@ -27,20 +28,32 @@ var options = {
 
 
 app.get('/', function(req, res) {
-	// Render index.mustache -> index.html
+	// Render index.mustache -> /index.html
 	res.render('index');
 });
 app.post('/', function(req, res) {
 	if (!req.body) return res.sendStatus(400);
-	console.log(req.body);
 
-	request(options, function (err, res, body) {
-		if (!err && res.statusCode == 200) {
-			var info = JSON.parse(body);
-			console.log(info);
-			// {response: info}
-			res.render('index', {response: ['I','don\'t','know','what','the','response','looks','like','but','you','get','idea']});
+	var requestedID = req.body.search;
+
+	rp(options).then(
+		function (body) {
+			body = JSON.parse(body);
+
+			var arrlen = Object.keys(body);
+			var output = {};
+
+			for (i in arrlen) {
+				if (body[i].accountCode === requestedID) {
+					output = body[i];
+					break;
+				}
+			}
+			res.render('index', {response: JSON.stringify(output)});
 		}
+	).catch(function (err) {
+		console.log("API call failed...");
+		res.send("API call failed...");
 	});
 });
 
